@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# ~/files
+# create specified number of c files in src directory
+
+cd ~/workspace || exit
+
+# if no arguments then print usage
+if [ -z "$1" ]
+then
+    printf "%s creates <num> c files in the src directory\nUsage: %s num\n" "$0" "$0"
+    exit 1
+fi
+
+# iterate over c files in entire project
+for i in $(seq 1 "$1")
+do
+    if ! [ -f "src/$i.c" ] # do nothing if file already exists
+    then
+        touch "src/$i.c" # create c file
+    fi
+done
