@@ -1,3 +1,3 @@
-## Euler
-# Compiling
+# Euler
+## Compiling
 run `./make`
