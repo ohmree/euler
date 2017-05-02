@@ -10,11 +10,12 @@ fib(unsigned int n)
     for (int i = 1; i <= n; i++) {
         if (i < 2) {
             sum = i;
-        } else  {
+        } else {
             next  =  term1 + term2;
             term1 =  term2;
             term2 =  next;
             sum  +=  next;
+        }
     }
     return sum;
 }
