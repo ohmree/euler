@@ -6,16 +6,14 @@
 static unsigned int
 fib(unsigned int n)
 {
-    unsigned int sum = 0, term1 = 0, term2 = 1, next = 0;
+    unsigned int sum = 1, term1 = 0, term2 = 1, next = 0;
     for (int i = 1; i <= n; i++) {
-        if (i < 2) {
-            sum = i;
-        } else {
-            next  =  term1 + term2;
-            term1 =  term2;
-            term2 =  next;
-            sum  +=  next;
-        }
+        next  =  term1 + term2;
+        term1 =  term2;
+        term2 =  next;
+        if (next % 2)
+            continue;
+        sum  +=  next;
     }
     return sum;
 }
