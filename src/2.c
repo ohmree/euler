@@ -24,15 +24,6 @@ fib(unsigned long long n)
     return sum;
 }
 
-/*static unsigned long long
-fib(unsigned long long n)
-{
-    //static unsigned long long num = 0;
-    return (n <= 2) ? 
-    n : 
-    fib(n--);
-}*/
-
 int
 main()
 {
