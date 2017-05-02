@@ -7,15 +7,14 @@ static unsigned int
 fib(unsigned int n)
 {
     unsigned int sum = 0, term1 = 0, term2 = 1, next = 0;
-    for (int i = 1; i <= num; i++) {
-        /*if (i == 1) {
-            sum += 1;
-        } else if { */
+    for (int i = 1; i <= n; i++) {
+        if (i < 2) {
+            sum = i;
+        } else  {
             next  =  term1 + term2;
             term1 =  term2;
             term2 =  next;
             sum  +=  next;
-        //}
     }
     return sum;
 }
