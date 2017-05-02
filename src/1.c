@@ -11,8 +11,7 @@ get_multiples(int n)
         if ((i % 3 == 0) || (i % 5 == 0))
             sum += i;
     return sum;
-}
-
+} 
 int
 main(int argc, char* argv[])
 {
@@ -22,9 +21,9 @@ main(int argc, char* argv[])
         return EXIT_FAILURE;
     } else if (argc == 2) {
         
-        printf("The sum of all the multiples of 3 or 5 below %d is %d", num, get_multiples(num));
+        printf("The sum of all the multiples of 3 or 5 below %d is %d\n", num, get_multiples(num));
     } else {
-        printf("The sum of all the multiples of 3 or 5 below %d is %d", usernum, get_multiples(usernum));
+        printf("The sum of all the multiples of 3 or 5 below %d is %d\n", usernum, get_multiples(usernum));
     }
     return EXIT_SUCCESS;
 }
