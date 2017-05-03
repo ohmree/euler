@@ -1,3 +1,5 @@
+/* solved */
+// TODO: optimize
 // use array and addition
 
 #include <stdio.h>

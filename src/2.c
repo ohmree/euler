@@ -1,22 +1,24 @@
+/* solved */
 #include <stdio.h>
 #include <stdlib.h>
 
 //#define DEBUG 
-#define NUM 40000000
+#define NUM 4000000
 
 static unsigned long long
 fib(unsigned long long n)
 {
     unsigned long long sum = 2, term1 = 1, term2 = 2, next = 0;
-    for (int i = 1; i <= n; i++) {
-        next  =  term1 + term2;
+    for (int i = 1 ; i <= n; i++) {
+        next = term1 + term2;
         #ifdef DEBUG
         printf("next: %llu\nterm1: %llu\nterm2: %llu\n\n", next, term1, term2);
         #endif
-        term1 =  term2;
-        term2 =  next;
-        if (next % 2) continue;
-        sum  +=  next;
+        term1 = term2;
+        term2 = next;
+        if (next > NUM) return sum;
+        if (next % 2) continue;  // TODO: optimize
+        sum += next;
         #ifdef DEBUG
         printf("sum: %llu\n\n", sum);
         #endif
@@ -25,8 +27,8 @@ fib(unsigned long long n)
 }
 
 int
-main()
+main(void)
 {
-    printf("The sum of all fibonacci numbers under %u is %llu\n", NUM, fib(NUM));
+    printf("The sum of all fibonacci numbers whose value is under %u is %llu\n", NUM, fib(NUM));
     return EXIT_SUCCESS;
 }
