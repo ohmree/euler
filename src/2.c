@@ -17,7 +17,7 @@ fib(unsigned long long n)
         term1 = term2;
         term2 = next;
         if (next > NUM) return sum;
-        if (next % 2) continue;  // TODO: optimize
+        if (next & 1) continue;  // This works because fib() is unsigned
         sum += next;
         #ifdef DEBUG
         printf("sum: %llu\n\n", sum);
