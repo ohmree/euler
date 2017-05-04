@@ -45,3 +45,6 @@ get_multiples(int n)
 One could use an array which size is `1000 * 5` (I think?) that stores `0` and `1` values  
 If `array[value]` is `1` it means it should be included in the final sum  
 This way is good because if a number is a multiple of 3 _AND_ 5 `array[number]` only needs to be checked for trueness and no other redundant operations have to be performed
+
+## Optimizing `pow()`
+According to [this](http://stackoverflow.com/a/101613) the power operation can be made more efficient (I want to try coming up with it by myself instead of copying the entire thing from Stack Overflow but I'm not that good at all that bitwise stuff)
