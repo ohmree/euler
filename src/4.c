@@ -5,7 +5,7 @@
 //#include <unistd.h>
 //#include <math.h>
 
-#define SIZE 50
+#define SIZE 6
 
 /* Would it be more correct to check the length
  * of the palindrome and discard single number results?*/
@@ -27,16 +27,15 @@ len(int n) {
 static int 
 palindrome_number(unsigned int n, unsigned int m)
 {
-    int i, k = 0;
-    char str1[SIZE], str2[SIZE];
+    char str1[SIZE];
+    unsigned int length = strlen(str1) - 1;
     
     sprintf(str1, "%d", (n * m));
-    for (i = (strlen(str1) - 1), k = 0; i >= 0 && k <= (strlen(str2)); i--, k++) {
-        str2[k] = str1[i];
+    for (int i = 0; i <= length; i++) {
+        if (str1[i] != str1[length - i]) return 0;
     }
-    return (atoi(str1) == atoi(str2))
-    ? atoi(str1)
-    : 0;
+    
+    return atoi(str1);
 }
 
 /** 
