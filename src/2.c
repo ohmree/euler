@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//#define DEBUG    0000000
+//#define DEBUG
 #define NUM 4000000
 
 static unsigned long long

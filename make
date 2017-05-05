@@ -2,7 +2,7 @@
 # ~/make
 # compile all non empty c files into correct binary files
 
-_compile='cc -Wall -std=gnu11' # command to compile
+_compile='cc -O0 -Wall -std=gnu11' # command to compile
 _release_compile='cc -O2 -Wall -std=gnu11' # command to compile for release build
 _ldflags='-lm'
 

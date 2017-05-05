@@ -48,3 +48,5 @@ This way is good because if a number is a multiple of 3 _AND_ 5 `array[number]` 
 
 ## Optimizing `pow()`
 According to [this](http://stackoverflow.com/a/101613) the power operation can be made more efficient (I want to try coming up with it by myself instead of copying the entire thing from Stack Overflow but I'm not that good at all that bitwise stuff)
+
+## Binary representation of negative numbers
