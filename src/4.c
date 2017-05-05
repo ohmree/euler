@@ -27,6 +27,7 @@ len(int n) {
 static int 
 palindrome_number(unsigned int n, unsigned int m)
 {
+    printf("n: %u\nm: %u\n", n, m);
     char str1[SIZE];
     unsigned int length = strlen(str1);
     
