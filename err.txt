@@ -1,0 +1,39 @@
+*** buffer overflow detected ***: bin/release/4 terminated
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x7329f)[0x7f8dedd3929f]
+/lib/x86_64-linux-gnu/libc.so.6(__fortify_fail+0x5c)[0x7f8deddd0bbc]
+/lib/x86_64-linux-gnu/libc.so.6(+0x109a90)[0x7f8deddcfa90]
+/lib/x86_64-linux-gnu/libc.so.6(+0x108f99)[0x7f8deddcef99]
+/lib/x86_64-linux-gnu/libc.so.6(_IO_default_xsputn+0xbc)[0x7f8dedd4160c]
+/lib/x86_64-linux-gnu/libc.so.6(_IO_vfprintf+0xadf)[0x7f8dedd1071f]
+/lib/x86_64-linux-gnu/libc.so.6(__vsprintf_chk+0x84)[0x7f8deddcf024]
+/lib/x86_64-linux-gnu/libc.so.6(__sprintf_chk+0x7d)[0x7f8deddcef7d]
+bin/release/4[0x400742]
+bin/release/4[0x4005a2]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf5)[0x7f8dedce7f45]
+bin/release/4[0x400606]
+======= Memory map: ========
+00400000-00401000 r-xp 00000000 00:306 327                               /home/ubuntu/workspace/bin/release/4
+00600000-00601000 r--p 00000000 00:306 327                               /home/ubuntu/workspace/bin/release/4
+00601000-00602000 rw-p 00001000 00:306 327                               /home/ubuntu/workspace/bin/release/4
+015a8000-015c9000 rw-p 00000000 00:00 0                                  [heap]
+7f8dedaaf000-7f8dedac5000 r-xp 00000000 00:306 342                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f8dedac5000-7f8dedcc4000 ---p 00016000 00:306 342                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f8dedcc4000-7f8dedcc5000 r--p 00015000 00:306 342                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f8dedcc5000-7f8dedcc6000 rw-p 00016000 00:306 342                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f8dedcc6000-7f8dede80000 r-xp 00000000 00:306 79                        /lib/x86_64-linux-gnu/libc-2.19.so
+7f8dede80000-7f8dee080000 ---p 001ba000 00:306 79                        /lib/x86_64-linux-gnu/libc-2.19.so
+7f8dee080000-7f8dee084000 r--p 001ba000 00:306 79                        /lib/x86_64-linux-gnu/libc-2.19.so
+7f8dee084000-7f8dee086000 rw-p 001be000 00:306 79                        /lib/x86_64-linux-gnu/libc-2.19.so
+7f8dee086000-7f8dee08b000 rw-p 00000000 00:00 0 
+7f8dee08b000-7f8dee0ae000 r-xp 00000000 00:306 72                        /lib/x86_64-linux-gnu/ld-2.19.so
+7f8dee299000-7f8dee29c000 rw-p 00000000 00:00 0 
+7f8dee2aa000-7f8dee2ad000 rw-p 00000000 00:00 0 
+7f8dee2ad000-7f8dee2ae000 r--p 00022000 00:306 72                        /lib/x86_64-linux-gnu/ld-2.19.so
+7f8dee2ae000-7f8dee2af000 rw-p 00023000 00:306 72                        /lib/x86_64-linux-gnu/ld-2.19.so
+7f8dee2af000-7f8dee2b0000 rw-p 00000000 00:00 0 
+7ffe6b033000-7ffe6b054000 rw-p 00000000 00:00 0                          [stack]
+7ffe6b14e000-7ffe6b150000 r--p 00000000 00:00 0                          [vvar]
+7ffe6b150000-7ffe6b152000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+Aborted
