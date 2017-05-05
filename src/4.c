@@ -28,12 +28,11 @@ static int
 palindrome_number(unsigned int n, unsigned int m)
 {
     char str1[SIZE];
-    unsigned int length = strlen(str1) - 1;
+    unsigned int length = strlen(str1);
     
     sprintf(str1, "%d", (n * m));
-    for (int i = 0; i <= length; i++) {
-        if (str1[i] != str1[length - i]) return 0;
-    }
+    for (int i = 0; i < length; i++)
+        if (str1[i] != str1[length - i - 1]) return 0;
     
     return atoi(str1);
 }
