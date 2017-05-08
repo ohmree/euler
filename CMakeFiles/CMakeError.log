@@ -1,0 +1,24 @@
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/xubuntu/euler/CMakeFiles/CMakeTmp
+
+Run Build Command:"/home/xubuntu/euler/make" "cmTC_18dc3/fast"
+Usage:  # debug build
+ release #release build
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/xubuntu/euler/CMakeFiles/CMakeTmp
+
+Run Build Command:"/home/xubuntu/euler/make" "cmTC_63562/fast"
+
+Generator: execution of make failed. Make command was: "/home/xubuntu/euler/make" "cmTC_63562/fast"
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/xubuntu/euler/CMakeFiles/CMakeTmp
+
+Run Build Command:"/home/xubuntu/euler/make" "cmTC_18c35/fast"
+
+Generator: execution of make failed. Make command was: "/home/xubuntu/euler/make" "cmTC_18c35/fast"
+
+

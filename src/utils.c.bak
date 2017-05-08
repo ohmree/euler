@@ -1,0 +1,26 @@
+#include <utils.h>
+sieve_of_erastothenes(unsigned long long max)
+{
+  bool* arr = /* (bool*) */ malloc(max * (sizeof(bool)) + 1);
+  if ( !arr ) return NULL;
+  memset(arr, true, max);
+  arr[0] = arr[1] = 0;
+
+  for (unsigned long long i = 2; i < max; ++i) {
+    if (!arr[i]) continue;
+    for (unsigned long long j = i + i; j < max; j += i)
+      arr[j] = false;
+  }
+
+  return arr;
+}
+
+nth_prime(unsigned long num)
+{
+  bool* arr = sieve_of_erastothenes(num);
+  for (int i = num; i >= 0; i++) {
+    if (arr[i]) return i;
+  }
+  return -1;
+  free(arr);
+}
