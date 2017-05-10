@@ -25,7 +25,7 @@ decimal_to_base(int num, int base)
       if (j * current_value < base) str[i] = j + '0';
     }
     
-  num -= str[i] * current_value;
+  num -= (str[i] - '0') * current_value;
   }
 
   return str;
