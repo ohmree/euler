@@ -1,0 +1,6 @@
+binary 100 2 10   => 4
+binary 100 3 10   => 9
+binary 100 4 10   => 6
+binary 11001 2 10 => 25
+binary 11001 2 3" => 111
+binary 25 10 3    => 111

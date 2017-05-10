@@ -39,7 +39,7 @@ to_decimal(char* num, unsigned int base)
       return -1;
     } 
     
-    sum += (num[i] - '0') * pow(base, len - i);
+    sum += (num[i] - '0') * pow(base, len - i - 1);
   }
   
   return sum;
