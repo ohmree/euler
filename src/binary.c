@@ -16,12 +16,16 @@ char*
 decimal_to_base(int num, int base)
 {
   int biggest = biggest_pow(num, base);
-  size_t len =  biggest + 1;
-  char* str = malloc(sizeof(char) * (len + 1));
-  str[len] = '\0';
+  size_t len  = biggest + 1;
+  char* str   = malloc(sizeof(char) * (len + 1));
+  str[len]    = '\0';
   for (int i = 0; i < len; i++) {
     unsigned int current_value = pow(base, biggest - i);
-    str[i] = (num >= current_value) + '0';
+    //if (base == 2) str[i] = (num >= current_value) + '0';
+    for (int j = 1; j < base; i++) {
+      if (j * pow(base, i) < base) str[i] = j + '0';
+    }
+    
     if (num >= current_value) num -= current_value;
   }
 
