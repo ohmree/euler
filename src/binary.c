@@ -29,9 +29,24 @@ to_binary(int num)
 }
 
 int
+to_decimal(char* num, unsigned int base)
+{
+  len = strlen(char);
+  unsigned int sum = 0;
+  for (unsigned int i = 0; i <= len - 1; i++) {
+    if (char[i] >= base) {
+      printf("char[%d] is too big for the selected base %d", i, base);
+      return -1;
+    } 
+    
+    sum += (char[i] - '0') * pow(base, len - i);
+  }
+}
+
+int
 main(int argc, char* argv[])
 {
-  if (argc < 1) {
+  if (argc < 2) {
     printf("Usage: %s num\n", argv[0]);
     return EXIT_SUCCESS;
   }
