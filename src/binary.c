@@ -22,7 +22,7 @@ decimal_to_base(int num, int base)
   for (int i = 0; i < len; i++) {
     unsigned int current_value = pow(base, biggest - i);
     //if (base == 2) str[i] = (num >= current_value) + '0';
-    for (int j = 1; j < base; i++) {
+    for (int j = 1; j < base; j++) {
       if (j * pow(base, i) < base) str[i] = j + '0';
     }
     
