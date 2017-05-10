@@ -34,8 +34,8 @@ to_decimal(char* num, unsigned int base)
   unsigned int len = strlen(num);
   unsigned int sum = 0;
   for (unsigned int i = 0; i <= len - 1; i++) {
-    if (num[i] >= base) {
-      printf("char[%d] is too big for the selected base %d", i, base);
+    if ((num[i] - '0') >= base) {
+      printf("%c at index %d is too big for the selected base %d", num[i], i, base);
       return -1;
     } 
     
