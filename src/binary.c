@@ -21,12 +21,11 @@ decimal_to_base(int num, int base)
   str[len]    = '\0';
   for (int i = 0; i < len; i++) {
     unsigned int current_value = pow(base, biggest - i);
-    //if (base == 2) str[i] = (num >= current_value) + '0';
-    for (int j = 1; j < base; j++) {
-      if (j * pow(base, i) < base) str[i] = j + '0';
+    for (int j = 0; j < base; j++) {
+      if (j * current_value < base) str[i] = j + '0';
     }
     
-    if (num >= current_value) num -= current_value;
+  num -= str[i] * current_value;
   }
 
   return str;
