@@ -13,14 +13,14 @@ biggest_pow(int num, int base)
 }
 
 char*
-to_binary(int num)
+decimal_to_base(int num, int base)
 {
-  int biggest = biggest_pow(num, 2);
+  int biggest = biggest_pow(num, base);
   size_t len =  biggest + 1;
   char* str = malloc(sizeof(char) * (len + 1));
   str[len] = '\0';
   for (int i = 0; i < len; i++) {
-    unsigned int current_value = pow(2, biggest - i);
+    unsigned int current_value = pow(base, biggest - i);
     str[i] = (num >= current_value) + '0';
     if (num >= current_value) num -= current_value;
   }
@@ -31,28 +31,33 @@ to_binary(int num)
 int
 to_decimal(char* num, unsigned int base)
 {
-  len = strlen(char);
+  unsigned int len = strlen(num);
   unsigned int sum = 0;
   for (unsigned int i = 0; i <= len - 1; i++) {
-    if (char[i] >= base) {
+    if (num[i] >= base) {
       printf("char[%d] is too big for the selected base %d", i, base);
       return -1;
     } 
     
-    sum += (char[i] - '0') * pow(base, len - i);
+    sum += (num[i] - '0') * pow(base, len - i);
   }
+  
+  return sum;
 }
 
 int
 main(int argc, char* argv[])
 {
-  if (argc < 2) {
-    printf("Usage: %s num\n", argv[0]);
+  if (argc < 4) {
+    printf("Usage: %s from to num\n", argv[0]);
     return EXIT_SUCCESS;
   }
   
-  char* str = to_binary(atoi(argv[1]));
+  int from = atoi(argv[1]), to = atoi(argv[2]), num = atoi(argv[3]);
+  
+  char* str = decimal_to_base(num, from);
   printf("%s\n", str);
+  
   free(str);
   return EXIT_SUCCESS;
 }
