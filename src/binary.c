@@ -31,6 +31,11 @@ to_binary(int num)
 int
 main(int argc, char* argv[])
 {
+  if (argc < 1) {
+    printf("Usage: %s num\n", argv[0]);
+    return EXIT_SUCCESS;
+  }
+  
   char* str = to_binary(atoi(argv[1]));
   printf("%s\n", str);
   free(str);

@@ -51,7 +51,7 @@ main(void)
   printf("%ld\n", nth_prime(600851475143));
 
   //for (int i = 0; i <= 1000; i++) printf("%d ", arr[i]);
-  printf("\n");
+  //printf("\n");
   //free(arr);
   return 0;
 }
