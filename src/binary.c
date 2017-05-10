@@ -46,16 +46,33 @@ to_decimal(char* num, unsigned int base)
 }
 
 int
+base_to_base(char* num, unsigned int from, unsigned int to)
+{
+  int decimal = to_decimal(num, from);
+  if (decimal == -1) return -1;
+  
+  if (to == 10) return decimal;
+  
+  
+  else {
+    char* str = decimal_to_base(decimal, to);
+    int new_decimal = atoi(str);
+    free(str);
+    return new_decimal;
+  }
+}
+
+int
 main(int argc, char* argv[])
 {
   if (argc < 4) {
-    printf("Usage: %s from to num\n", argv[0]);
+    printf("Usage: %s num from to\n", argv[0]);
     return EXIT_SUCCESS;
   }
   
-  int from = atoi(argv[1]), to = atoi(argv[2]), num = atoi(argv[3]);
+  int num = argv[1], from = atoi(argv[2]), to = atoi(argv[3]);
   
-  char* str = decimal_to_base(num, from);
+  char* str = base_to_base(num, from, to);
   printf("%s\n", str);
   
   free(str);
