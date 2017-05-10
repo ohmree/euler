@@ -70,9 +70,9 @@ main(int argc, char* argv[])
     return EXIT_SUCCESS;
   }
   
-  int num = argv[1], from = atoi(argv[2]), to = atoi(argv[3]);
+  int from = atoi(argv[2]), to = atoi(argv[3]);
   
-  char* str = base_to_base(num, from, to);
+  char* str = base_to_base(argv[1], from, to);
   printf("%s\n", str);
   
   free(str);
