@@ -53,7 +53,6 @@ static bool pause;
 
 static int  foodAmount = 0;
 
-static int  timer = 0;
 
 #if defined(DEBUG)
 static char* debugText;
@@ -61,9 +60,6 @@ static char* debugText;
 
 static Player player;
 
-static Food food1;
-static Food food2;
-static Food food3;
 
 //------------------------------------------------------------------------------------
 // Module Functions Declaration (local)
@@ -222,12 +218,7 @@ static void UpdateFood(void)
     // Draw food
     for (int i = 1; i <= foodAmount; i++)
     {
-        if (timer == 20)
-        {
-            timer = 0;
-            DrawCircle(20*i, player.position.y, 50, RED);
-        }
-        else timer++;
+        DrawCircle(20*i, player.position.y, 50, RED);
     }
 }
 
