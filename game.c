@@ -156,7 +156,7 @@ void UpdateGame(void)
             debugText = FormatText("screen: %dx%d\nx: %f\ny: %f\nfood: %d", screenWidth, screenHeight, player.position.x, player.position.y, foodAmount);
         #endif
             // Update food
-            UpdateFood();
+            Timer(UpdateFood, 5);
             
             if (player.life <= 0) gameOver = true;
         }
@@ -230,8 +230,8 @@ static void UpdateFood(void)
     }
 }
 
-static void Timer(void (*func)(void))
+static void Timer(void (*func)(void), int seconds)
 {
     clock_t startTime = clock();
-    if ((startTime - clock() / CLOCKS_PER_SEC) > 5) (*func)();
+    if ((startTime - clock() / CLOCKS_PER_SEC) > seconds) (*func)();
 }
