@@ -51,7 +51,9 @@ static int  framesCounter;
 static bool gameOver;
 static bool pause;
 
-static int foodAmount = 0;
+static int  foodAmount = 0;
+
+static int  timer = 0;
 
 #if defined(DEBUG)
 static char* debugText;
@@ -145,14 +147,14 @@ void UpdateGame(void)
         {
             // Player Movement
             if (IsKeyDown(KEY_LEFT))                                  player.position.x -= 5;
-            if ((player.position.x - player.size.x/2) <= 0)           player.position.x = player.size.x/2;
+            if ((player.position.x - player.size.x/2) <= 0)           player.position.x =  player.size.x/2;
             if (IsKeyDown(KEY_RIGHT))                                 player.position.x += 5;
-            if ((player.position.x + player.size.x/2) >= screenWidth) player.position.x = screenWidth - player.size.x/2;
+            if ((player.position.x + player.size.x/2) >= screenWidth) player.position.x =  screenWidth - player.size.x/2;
             
         #if defined(DEBUG)
             // Debug text
             debugText = FormatText("screen: %dx%d\nx: %f\ny: %f\nfood: %d", screenWidth, screenHeight, player.position.x, player.position.y, foodAmount);
-        #endif    
+        #endif
             // Update food
             UpdateFood();
             
@@ -214,19 +216,22 @@ void UpdateDrawFrame(void)
 //--------------------------------------------------------------------------------------
 static void UpdateFood(void)
 {
-    int timer = 0;
     if (foodAmount < 3) foodAmount++;
     
     // Draw food
     for (int i = 1; i <= foodAmount; i++)
     {
-        if (timer == 200)
+        if (timer == 20)
         {
             timer = 0;
             DrawCircle(20*i, player.position.y, 50, RED);
         }
         else timer++;
-        foodAmount--;
     }
-    
+}
+
+static void Timer(void (*func)(void))
+{
+    clock_t startTime = clock();
+    if ((startTime - clock() / CLOCKS_PER_SEC) > 5) (*func)();
 }
