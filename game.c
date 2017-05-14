@@ -77,6 +77,7 @@ static void UpdateDrawFrame(void);  // Update and Draw (one frame)
 
 // Additional module functions
 static void UpdateFood(void);
+static void Timer(void (*func)(void), int seconds);
 
 //----------------------------------------------------------------------------------
 // Main Enry Point
