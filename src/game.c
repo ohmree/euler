@@ -230,11 +230,12 @@ bool Timer(int seconds)
         return false;
     }
     
-    else if (((startTime - clock()) / CLOCKS_PER_SEC) > seconds)
+    else if (((clock() - startTime) / CLOCKS_PER_SEC) > seconds)
     {
         startTime = clock();
         return true;
     }
+    
     return false;
 }
 
