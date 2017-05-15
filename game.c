@@ -50,16 +50,11 @@ static int  screenHeight = 450;
 static int  framesCounter;
 static bool gameOver;
 static bool pause;
-
-static int  foodAmount = 0;
-
-
-#if defined(DEBUG)
-static char* debugText;
-#endif
+//static bool timeOut;
 
 static Player player;
 
+static clock_t startTime;
 
 //------------------------------------------------------------------------------------
 // Module Functions Declaration (local)
@@ -128,9 +123,13 @@ void InitGame(void)
     player.position = (Vector2){ screenWidth/2, screenHeight - screenHeight/8 };
     player.size = (Vector2){ screenWidth/10, screenHeight/22.5 };
     player.life = PLAYER_MAX_LIFE;
-#if defined(debug)
-    debugText = malloc(sizeof(char) * 40);
-#endif
+    
+    // Initialize timer
+    startTime = (clock_t) -1;
+    
+    // Seed rand()
+    srand (time(NULL));
+
 }
 
 // Update game (one frame)
@@ -148,10 +147,6 @@ void UpdateGame(void)
             if (IsKeyDown(KEY_RIGHT))                                 player.position.x += 5;
             if ((player.position.x + player.size.x/2) >= screenWidth) player.position.x =  screenWidth - player.size.x/2;
             
-        #if defined(DEBUG)
-            // Debug text
-            debugText = FormatText("screen: %dx%d\nx: %f\ny: %f\nfood: %d", screenWidth, screenHeight, player.position.x, player.position.y, foodAmount);
-        #endif
             // Update food
             Timer(UpdateFood, 5);
             
@@ -176,8 +171,8 @@ void DrawGame(void)
         
         if (!gameOver)
         {
-        #if defined(DEBUG)
-            DrawText(debugText, 50, 70, 20, BLACK);
+        #if defined(DEBUG)                                                                                                                     // This makes it crash and if I remove the substraction no debug text is shown
+            DrawText(FormatText("screen: %dx%d\nx: %f\ny: %f\nstartTime: WIP", screenWidth, screenHeight, player.position.x, player.position.y /*, (startTime - clock()) / CLOCKS_PER_SEC*/),  50, 70, 20, BLACK);
         #endif
             // Draw ground
             DrawRectangle(0, screenHeight - screenHeight/8 + (screenHeight - screenHeight/8)/36, screenWidth, screenHeight/9, GREEN);
@@ -198,7 +193,7 @@ void DrawGame(void)
 // Unload game variables
 void UnloadGame(void)
 {
-    free(debugText);
+    // TODO: Free game assets
 }
 
 // Update and draw (one frame)
@@ -213,17 +208,41 @@ void UpdateDrawFrame(void)
 //--------------------------------------------------------------------------------------
 static void UpdateFood(void)
 {
-    if (foodAmount < 3) foodAmount++;
-    
-    // Draw food
-    for (int i = 1; i <= foodAmount; i++)
-    {
-        DrawCircle(20*i, player.position.y, 50, RED);
-    }
+    // This is wrong because drawing code has to be between BeginDrawing() and EndDrawing()
+        DrawCircle(200, player.position.y, 50, RED);
 }
 
-static void Timer(void (*func)(void), int seconds)
+static void DrawFood(void)
 {
-    clock_t startTime = clock();
-    if ((startTime - clock() / CLOCKS_PER_SEC) > seconds) (*func)();
+    
 }
+
+/// Version with static variable
+static void Timer(void (*func) (void), int seconds)
+{
+        static clock_t startTime = (clock_t) -1;
+        
+        if (startTime == -1) 
+        {
+            startTime = clock();
+        }
+        else if (((startTime - clock()) / CLOCKS_PER_SEC) > seconds)
+        {
+            startTime = clock();
+            (*func)();
+        }
+}
+
+/// Version with global variable
+// static void Timer(void (*func)(void), int seconds)
+// {               
+        // if (startTime == -1) 
+        // {
+            // startTime = clock();
+        // }
+        // else if (((startTime - clock()) / CLOCKS_PER_SEC) > seconds)
+        // {
+            // startTime = clock();
+            // (*func)();
+        // }
+// }
