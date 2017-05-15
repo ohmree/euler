@@ -68,7 +68,8 @@ static void UpdateDrawFrame(void);  // Update and Draw (one frame)
 
 // Additional module functions
 static void UpdateFood(void);
-static void Timer(void (*func)(void), int seconds);
+static void DrawFood(void)
+static bool Timer(int seconds);
 
 //----------------------------------------------------------------------------------
 // Main Enry Point
@@ -148,7 +149,7 @@ void UpdateGame(void)
             if ((player.position.x + player.size.x/2) >= screenWidth) player.position.x =  screenWidth - player.size.x/2;
             
             // Update food
-            Timer(UpdateFood, 5);
+            
             
             if (player.life <= 0) gameOver = true;
         }
@@ -179,6 +180,7 @@ void DrawGame(void)
             
             // Draw player bar
             DrawRectangle(player.position.x - player.size.x/2, player.position.y - player.size.y/2, player.size.x, player.size.y, BLACK);
+            if (Timer(5)) DrawFood();
             
             // Draw player lives
             for (int i = 0; i < player.life; i++) DrawRectangle(20 + 40*i, screenHeight - 30, 35, 10, LIGHTGRAY);
@@ -206,30 +208,31 @@ void UpdateDrawFrame(void)
 //--------------------------------------------------------------------------------------
 // Additional module functions
 //--------------------------------------------------------------------------------------
-static void UpdateFood(void)
+void UpdateFood(void)
 {
     // This is wrong because drawing code has to be between BeginDrawing() and EndDrawing()
-        DrawCircle(200, player.position.y, 50, RED);
 }
 
-static void DrawFood(void)
+void DrawFood(void)
 {
-    
+    DrawCircle(200, player.position.y, 50, RED);
 }
 
 /// Version with static variable
-static void Timer(void (*func) (void), int seconds)
+bool Timer(int seconds)
 {
         static clock_t startTime = (clock_t) -1;
         
         if (startTime == -1) 
         {
             startTime = clock();
+            return false;
         }
+        
         else if (((startTime - clock()) / CLOCKS_PER_SEC) > seconds)
         {
             startTime = clock();
-            (*func)();
+            return true;
         }
 }
 
