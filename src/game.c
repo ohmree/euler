@@ -23,6 +23,7 @@
 //----------------------------------------------------------------------------------
 
 #define PLAYER_MAX_LIFE         5
+#define FOOD_INTERVAL           1
 
 //----------------------------------------------------------------------------------
 // Types and Structures Definition
@@ -126,7 +127,7 @@ void InitGame(void)
     player.life = PLAYER_MAX_LIFE;
     
     // Initialize timer
-    startTime = (clock_t) -1;
+    //startTime = (clock_t) -1;
     
     // Seed rand()
     srand (time(NULL));
@@ -172,15 +173,15 @@ void DrawGame(void)
         
         if (!gameOver)
         {
-        #if defined(DEBUG)                                                                                                                     // This makes it crash and if I remove the substraction no debug text is shown
-            DrawText(FormatText("screen: %dx%d\nx: %f\ny: %f\nstartTime: WIP", screenWidth, screenHeight, player.position.x, player.position.y /*, (startTime - clock()) / CLOCKS_PER_SEC*/),  50, 70, 20, BLACK);
+        #if defined(DEBUG)                                                                                                                     
+            DrawText(FormatText("screen: %dx%d\nx: %f\ny: %f\nTimer(%d): %d", screenWidth, screenHeight, player.position.x, player.position.y, FOOD_INTERVAL, Timer(FOOD_INTERVAL)),  50, 70, 20, BLACK);
         #endif
             // Draw ground
             DrawRectangle(0, screenHeight - screenHeight/8 + (screenHeight - screenHeight/8)/36, screenWidth, screenHeight/9, GREEN);
             
             // Draw player bar
             DrawRectangle(player.position.x - player.size.x/2, player.position.y - player.size.y/2, player.size.x, player.size.y, BLACK);
-            if (Timer(200)) DrawFood();
+            if (Timer(FOOD_INTERVAL)) DrawFood();
             
             // Draw player lives
             for (int i = 0; i < player.life; i++) DrawRectangle(20 + 40*i, screenHeight - 30, 35, 10, LIGHTGRAY);
@@ -221,19 +222,20 @@ void DrawFood(void)
 /// Version with static variable
 bool Timer(int seconds)
 {
-        static clock_t startTime = (clock_t) -1;
-        
-        if (startTime == -1) 
-        {
-            startTime = clock();
-            return false;
-        }
-        
-        else if (((startTime - clock()) / CLOCKS_PER_SEC) > seconds)
-        {
-            startTime = clock();
-            return true;
-        }
+    static clock_t startTime = (clock_t) -1;
+    
+    if (startTime == -1) 
+    {
+        startTime = clock();
+        return false;
+    }
+    
+    else if (((startTime - clock()) / CLOCKS_PER_SEC) > seconds)
+    {
+        startTime = clock();
+        return true;
+    }
+    return false;
 }
 
 /// Version with global variable
