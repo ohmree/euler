@@ -37,7 +37,7 @@ typedef struct Player {
 
 typedef struct Food {
     Vector2 position;
-    Vector2 size;
+    float   radius;
     int value;
 } Food;
 
@@ -50,18 +50,11 @@ static int  screenHeight = 450;
 static int  framesCounter;
 static bool gameOver;
 static bool pause;
-
-static int foodAmount = 0;
-
-#if defined(DEBUG)
-static char* debugText;
-#endif
+//static bool timeOut;
 
 static Player player;
 
-static Food food1;
-static Food food2;
-static Food food3;
+static clock_t startTime;
 
 //------------------------------------------------------------------------------------
 // Module Functions Declaration (local)
@@ -75,6 +68,8 @@ static void UpdateDrawFrame(void);  // Update and Draw (one frame)
 
 // Additional module functions
 static void UpdateFood(void);
+static void DrawFood(void);
+static bool Timer(int seconds);
 
 //----------------------------------------------------------------------------------
 // Main Enry Point
@@ -127,9 +122,15 @@ void InitGame(void)
 {
     // Initialize player
     player.position = (Vector2){ screenWidth/2, screenHeight - screenHeight/8 };
-    player.size = (Vector2){ screenWidth/10, 20 };
+    player.size = (Vector2){ screenWidth/10, screenHeight/22.5 };
     player.life = PLAYER_MAX_LIFE;
-    debugText = malloc(sizeof(char) * 40);
+    
+    // Initialize timer
+    startTime = (clock_t) -1;
+    
+    // Seed rand()
+    srand (time(NULL));
+
 }
 
 // Update game (one frame)
@@ -143,16 +144,12 @@ void UpdateGame(void)
         {
             // Player Movement
             if (IsKeyDown(KEY_LEFT))                                  player.position.x -= 5;
-            if ((player.position.x - player.size.x/2) <= 0)           player.position.x = player.size.x/2;
+            if ((player.position.x - player.size.x/2) <= 0)           player.position.x =  player.size.x/2;
             if (IsKeyDown(KEY_RIGHT))                                 player.position.x += 5;
-            if ((player.position.x + player.size.x/2) >= screenWidth) player.position.x = screenWidth - player.size.x/2;
+            if ((player.position.x + player.size.x/2) >= screenWidth) player.position.x =  screenWidth - player.size.x/2;
             
-        #if defined(DEBUG)
-            // Debug text
-            debugText = FormatText("screen: %dx%d\nx: %f\ny: %f\nfood: %d", screenWidth, screenHeight, player.position.x, player.position.y, foodAmount);
-        #endif    
             // Update food
-            UpdateFood();
+            
             
             if (player.life <= 0) gameOver = true;
         }
@@ -175,25 +172,19 @@ void DrawGame(void)
         
         if (!gameOver)
         {
-        #if defined(DEBUG)
-            DrawText(debugText, 50, 70, 20, BLACK);
+        #if defined(DEBUG)                                                                                                                     // This makes it crash and if I remove the substraction no debug text is shown
+            DrawText(FormatText("screen: %dx%d\nx: %f\ny: %f\nstartTime: WIP", screenWidth, screenHeight, player.position.x, player.position.y /*, (startTime - clock()) / CLOCKS_PER_SEC*/),  50, 70, 20, BLACK);
         #endif
             // Draw ground
             DrawRectangle(0, screenHeight - screenHeight/8 + (screenHeight - screenHeight/8)/36, screenWidth, screenHeight/9, GREEN);
             
             // Draw player bar
             DrawRectangle(player.position.x - player.size.x/2, player.position.y - player.size.y/2, player.size.x, player.size.y, BLACK);
+            if (Timer(200)) DrawFood();
             
             // Draw player lives
             for (int i = 0; i < player.life; i++) DrawRectangle(20 + 40*i, screenHeight - 30, 35, 10, LIGHTGRAY);
-            
-            // Draw food
-            for (int i = 1; i <= 4; i++)
-            {
-                DrawCircle(20 * i, player.position.y, 50, RED);
-                foodAmount--;
-            }
-            
+       
             if (pause) DrawText("GAME PAUSED", screenWidth / 2 - MeasureText("GAME PAUSED", 40)/2, screenHeight/2 - 40, 40, GRAY);
         }
         else DrawText("PRESS [ENTER] TO PLAY AGAIN", screenWidth/2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20)/2, screenHeight/2 - 50, 20, GRAY);
@@ -204,7 +195,7 @@ void DrawGame(void)
 // Unload game variables
 void UnloadGame(void)
 {
-    free(debugText);
+    // TODO: Free game assets
 }
 
 // Update and draw (one frame)
@@ -217,20 +208,44 @@ void UpdateDrawFrame(void)
 //--------------------------------------------------------------------------------------
 // Additional module functions
 //--------------------------------------------------------------------------------------
-static void UpdateFood(void)
+void UpdateFood(void)
 {
-    int timer = 0;
-    if (foodAmount < 3) foodAmount++;
-    
-    // Draw food
-    for (int i = 1; i <= foodAmount; i++)
-    {
-        if (timer = 200000000)
-        {
-            timer = 0;
-            DrawCircle(20 * i, player.position.y, 50, RED);
-        }
-        else timer++;
-        foodAmount--;
-    }
+    // This is wrong because drawing code has to be between BeginDrawing() and EndDrawing()
 }
+
+void DrawFood(void)
+{
+    DrawCircle(200, player.position.y, 50, RED);
+}
+
+/// Version with static variable
+bool Timer(int seconds)
+{
+        static clock_t startTime = (clock_t) -1;
+        
+        if (startTime == -1) 
+        {
+            startTime = clock();
+            return false;
+        }
+        
+        else if (((startTime - clock()) / CLOCKS_PER_SEC) > seconds)
+        {
+            startTime = clock();
+            return true;
+        }
+}
+
+/// Version with global variable
+// static void Timer(void (*func)(void), int seconds)
+// {               
+        // if (startTime == -1) 
+        // {
+            // startTime = clock();
+        // }
+        // else if (((startTime - clock()) / CLOCKS_PER_SEC) > seconds)
+        // {
+            // startTime = clock();
+            // (*func)();
+        // }
+// }
