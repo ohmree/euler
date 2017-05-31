@@ -24,14 +24,18 @@ int main()
     }
     printf("\n\n");
 
+    int j = 9;
     for (int i = 0; i < 9; i++)
     {
-        if (arr[i] > arr[i+1])
+        for (int n = 0; n < j; i++) 
         {
-            swap(&arr[i], &arr[i + 1]);
+            if (j == 1) goto end;
+            if (arr[n] > arr[n+1])
+                swap(&arr[n], &arr[n+1]);            
         }
+        j--;
     }
-    
+    end:
     for (int i = 0; i < 10; i++)
         printf("%d ", arr[i]);
     
