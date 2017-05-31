@@ -14,25 +14,26 @@ void swap(int* num1, int* num2)
 int main()
 {
     srand(time(NULL));
-    
-    int temp = 0;
-    
+        
     int arr[10];
     
-    for (int i = 0; i <= 10; i++)
+    for (int i = 0; i < 10; i++)
     {
-        printf("%d ", arr[i]);
         arr[i] = rand() % 1001;
+        printf("%d ", arr[i]);
     }
     printf("\n\n");
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 9; i++)
     {
         if (arr[i] > arr[i+1])
         {
             swap(&arr[i], &arr[i + 1]);
         }
-        printf("%d ", arr[i]);
     }
+    
+    for (int i = 0; i < 10; i++)
+        printf("%d ", arr[i]);
+    
     printf("\n");
 }
